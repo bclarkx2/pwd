@@ -105,7 +105,11 @@ def git_branch_info(repo_path, vcs_subdir):
     lines = cmd_output.stdout.decode(encoding="utf-8").splitlines()
 
     branch = lines[0][3:]
-    local, rest = branch.split("...")
+
+    try:
+        local, rest = branch.split("...")
+    except ValueError:
+        local,rest = branch, ""
 
     divergence = rest[rest.find("["):rest.find("]") + 1]
 
@@ -193,7 +197,7 @@ def main():
     hostname = gethostname()
     username = os.getenv('USER')
     repo, repo_path, vcs_subdir = repo_information(pwd)
-    branch, divergence = branch_info(repo_path, vcs_subdir) if repo else ""
+    branch, divergence = branch_info(repo_path, vcs_subdir) if repo else ("", "")
     virtualenv = virtual_env(pwd)
 
     # Format pieces for display
