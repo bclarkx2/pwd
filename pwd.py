@@ -9,8 +9,7 @@ import hashlib
 import sys
 
 from socket import gethostname
-from os import path 
-from git import Repo
+from os import path
 
 import subprocess
 
@@ -89,25 +88,38 @@ def get_vcs_subdir(current_dir):
     return ""
 
 
-def branch_name(repo_path, vcs_subdir):
+def branch_info(repo_path, vcs_subdir):
     vcs_obj = path.join(repo_path, vcs_subdir)
 
     if vcs_subdir == ".git":
-        return git_branch_name(repo_path, vcs_subdir)   
+        return git_branch_info(repo_path, vcs_subdir)
     else:
-        return "SVN"
+        return "SVN", ""
 
 
-def git_branch_name(repo_path, vcs_subdir):
-    repo = Repo(repo_path)
-    cmd_output = subprocess.run(["git", "status", "-s"], stdout=subprocess.PIPE)
+def git_branch_info(repo_path, vcs_subdir):
+    cmd_output = subprocess.run(
+        ["git", "status", "--branch", "--porcelain"],
+        stdout=subprocess.PIPE
+    )
+    lines = cmd_output.stdout.decode(encoding="utf-8").splitlines()
 
-    if len(cmd_output.stdout) > 0:
-        fmt = f"{repo.active_branch.name}*"
-    else:
-        fmt = f"{repo.active_branch.name}"
+    branch = lines[0][3:]
 
-    return fmt.format()
+    try:
+        local, rest = branch.split("...")
+    except ValueError:
+        local,rest = branch, ""
+
+    divergence = rest[rest.find("["):rest.find("]") + 1]
+
+    changes = lines[1:]
+    dirty = len(changes) > 0
+
+    if dirty:
+        local += "*"
+
+    return local, divergence
 
 
 def virtual_env(pwd):
@@ -185,7 +197,7 @@ def main():
     hostname = gethostname()
     username = os.getenv('USER')
     repo, repo_path, vcs_subdir = repo_information(pwd)
-    branch = branch_name(repo_path, vcs_subdir) if repo else ""
+    branch, divergence = branch_info(repo_path, vcs_subdir) if repo else ("", "")
     virtualenv = virtual_env(pwd)
 
     # Format pieces for display
@@ -195,7 +207,21 @@ def main():
     branch = format_branch_name(branch)
     
     # Combine into display
-    prompt = ''.join([os.linesep, identity, repo, FGRN, pwd, RS, branch, virtualenv, os.linesep, FYEL, CURSOR, RS])
+    prompt = ''.join([
+        os.linesep,
+        identity,
+        repo,
+        FGRN,
+		pwd,
+		RS,
+		branch,
+        divergence,
+		virtualenv,
+		os.linesep,
+		FYEL,
+		CURSOR,
+		RS
+    ])
     print(prompt)
 
 
