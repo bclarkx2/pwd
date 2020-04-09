@@ -48,8 +48,6 @@ BMAG = "\[\033[45m\]"  # background magenta
 BCYN = "\[\033[46m\]"  # background cyan
 BWHT = "\[\033[47m\]"  # background white
 
-colors = [FRED, FYEL, FBLE, FMAG, FCYN, FWHT]
-
 vcs_subdirs = [".svn", ".git"]
 
 
@@ -104,14 +102,18 @@ def git_branch_info(repo_path, vcs_subdir):
     )
     lines = cmd_output.stdout.decode(encoding="utf-8").splitlines()
 
-    branch = lines[0][3:]
+    status = lines[0][3:]
 
-    try:
-        local, rest = branch.split("...")
-    except ValueError:
-        local,rest = branch, ""
+    if " " in status:
+        branches, divergence = status.split(" ", 1)
+    else:
+        branches, divergence = status, ""
 
-    divergence = rest[rest.find("["):rest.find("]") + 1]
+    if "..." in branches:
+        local, remote = branches.split("...", 1)
+        remote = remote[:remote.find("/")]
+    else:
+        local, remote = branches, ""
 
     changes = lines[1:]
     dirty = len(changes) > 0
@@ -119,7 +121,7 @@ def git_branch_info(repo_path, vcs_subdir):
     if dirty:
         local += "*"
 
-    return local, divergence
+    return local, remote, divergence
 
 
 def virtual_env(pwd):
@@ -157,29 +159,11 @@ def format_pwd(pwd):
     return pwd.replace(homedir, '~', 1)
 
 
-def format_repo_name(repo_name):
-    return format_name(repo_name, "{}[{}]{}")
-
-
-def format_branch_name(branch_name):
-    return format_name(branch_name, "{}({}){}")
-
-
-def format_name(name, format_string):
+def format_name(fmt, name, color):
     if name:
-        color = name_color(name)
-        formatted = format_string.format(color, name, RS)
+        return f"{color}{fmt.format(name)}{RS}"
     else:
-        formatted = ""
-
-    return formatted
-
-
-def name_color(name):
-    encoded_name = name.encode('utf-8')
-    color_digest = hashlib.sha256(encoded_name).hexdigest()
-    color_index = int(color_digest, 16) % len(colors)
-    return colors[color_index]
+        return ""
 
 
 ###############################################################################
@@ -197,15 +181,16 @@ def main():
     hostname = gethostname()
     username = os.getenv('USER')
     repo, repo_path, vcs_subdir = repo_information(pwd)
-    branch, divergence = branch_info(repo_path, vcs_subdir) if repo else ("", "")
+    branch, remote, div = branch_info(repo_path, vcs_subdir) if repo else ("", "", "")
     virtualenv = virtual_env(pwd)
 
     # Format pieces for display
     identity = format_identity(username, hostname)
     pwd = format_pwd(pwd)
-    repo = format_repo_name(repo)
-    branch = format_branch_name(branch)
-    
+    repo = format_name("[{}]", repo, FCYN)
+    branch = format_name("({})", branch, FMAG)
+    remote = format_name("↑{{{}}}", remote, FBLE)
+
     # Combine into display
     prompt = ''.join([
         os.linesep,
@@ -214,8 +199,9 @@ def main():
         FGRN,
 		pwd,
 		RS,
-		branch,
-        divergence,
+		remote,
+        branch,
+        div,
 		virtualenv,
 		os.linesep,
 		FYEL,
