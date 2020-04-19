@@ -98,8 +98,14 @@ def branch_info(repo_path, vcs_subdir):
 def git_branch_info(repo_path, vcs_subdir):
     cmd_output = subprocess.run(
         ["git", "status", "--branch", "--porcelain"],
-        stdout=subprocess.PIPE
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE
     )
+
+    if cmd_output.returncode != 0:
+        err = cmd_output.stderr.decode(encoding="utf-8").strip()
+        return "NO STATUS", "", f"[{err}]"
+
     lines = cmd_output.stdout.decode(encoding="utf-8").splitlines()
 
     status = lines[0][3:]
