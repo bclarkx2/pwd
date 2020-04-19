@@ -3,20 +3,43 @@
 `pwd` is a Python tool to create a perfect bash prompt!
 
 ### Features:
-- Color
+
+Supported version control systems: `git`
+
+- VCS: Repo and branch name
+
+![repo-branch-name-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/repo_branch_name.png)
+
+- VCS: Remote display
+
+![remote-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/remote.png)
+
+- VCS: Dirty flag
+
+![dirty-flag-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/dirty_flag.png)
+
+- VCS: Divergence tracking
+
+![divergence-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/divergence.png)
+
+- VCS: Submodule support
+
+![submodule-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/submodule.png)
+
+- VCS: Detached HEAD warning
+
+![detached-head-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/detached_head.png)
+
+
 - User+hostname if on an external system
-- Version control integration
- - Repo name
- - Submodule support
- - Dirty/clean flag
- - Supports: git
+
+![identity-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/identity.png)
+
+
 - Python virtual environment (limited)
 
-### Examples:
-
-![An example](https://raw.githubusercontent.com/bclarkx2/pwd/master/doc/example1.png)
-
-![Another example](https://raw.githubusercontent.com/bclarkx2/pwd/master/doc/example2.png)
+![venv-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/venv.png)
+![missing-venv-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/missing_venv.png)
 
 
 ## Installation
