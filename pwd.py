@@ -129,7 +129,7 @@ def virtual_env(pwd):
     # might be in an activated venv
     if sys.prefix != sys.base_prefix:
         venv_name = os.path.basename(sys.prefix)
-        return format_name(venv_name, "{}|{}|{}")
+        return format_name("|{}|", venv_name, FGRN)
 
     # might be in a directory that contains a venv
     else:
@@ -140,7 +140,7 @@ def virtual_env(pwd):
         for subdir in subdirs:
             f = os.path.join(subdir, "bin", "activate")
             if os.path.isfile(f):
-                return format_name("ENV", "{}!!{}!!{}")
+                return format_name("!!{}!!", "ENV", FRED)
 
         return ""
 
