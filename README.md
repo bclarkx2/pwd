@@ -8,38 +8,38 @@ Supported version control systems: `git`
 
 - VCS: Repo and branch name
 
-[repo-branch-name-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/repo_branch_name.png)
+[repo-branch-name-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/repo_branch_name.png)
 
 - VCS: Remote display
 
-[remote-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/remote.png)
+[remote-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/remote.png)
 
 - VCS: Dirty flag
 
-[dirty-flag-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/dirty_flag.png)
+[dirty-flag-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/dirty_flag.png)
 
 - VCS: Divergence tracking
 
-[divergence-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/divergence.png)
+[divergence-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/divergence.png)
 
 - VCS: Submodule support
 
-[submodule-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/submodule.png)
+[submodule-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/submodule.png)
 
 - VCS: Detached HEAD warning
 
-[detached-head-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/detached_head.png)
+[detached-head-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/detached_head.png)
 
 
 - User+hostname if on an external system
 
-[identity-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/identity.png)
+[identity-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/identity.png)
 
 
 - Python virtual environment (limited)
 
-[venv-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/venv.png)
-[missing-venv-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/missing_venv.png)
+[venv-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/venv.png)
+[missing-venv-example](https://raw.githubusercontent.com/bclarkx2/pwd/media/doc/img/missing_venv.png)
 
 
 ## Installation
