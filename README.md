@@ -65,4 +65,4 @@ Add the following line to your `.bashrc` (or other shell configuration files):
 If the current username and hostname are both equal to the respective values in the `MY_USERNAME` and `MY_HOSTNAME` environment variables, the `user@hostname` part of the prompt will be suppressed.
 
 ## Licensing
-This project is released under the MIT license. See (LICENSE.md) for details.
+This project is released under the MIT license. See [LICENSE.md](LICENSE.md) for details.
