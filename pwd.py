@@ -66,6 +66,11 @@ def repo_information(pwd):
 
     for i in range(2, len(pwd_list)+1):
         current_dir = pwd_list[:i]
+
+        # Bail out if pwd is IN the VCS data dir
+        if current_dir[-1] in vcs_subdirs:
+            return [], [], ""
+
         vcs_subdir = get_vcs_subdir(current_dir)
         if vcs_subdir:
             last_repo = current_dir
