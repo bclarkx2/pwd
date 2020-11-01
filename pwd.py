@@ -132,7 +132,11 @@ def git_branch_info(repo_path, vcs_subdir):
     if dirty:
         local += "*"
 
-    return local, remote, divergence
+    stash_output = subprocess.check_output(["git", "stash", "list"])
+    stash_lines = stash_output.decode(encoding="utf-8").splitlines()
+    stashes = len(stash_lines)
+
+    return local, remote, divergence, stashes
 
 
 def virtual_env(pwd):
@@ -176,6 +180,8 @@ def format_name(fmt, name, color):
     else:
         return ""
 
+def format_stashes(stashes):
+    return "".join("." * stashes)
 
 ###############################################################################
 # Main                                                                        #
@@ -192,7 +198,10 @@ def main():
     hostname = gethostname()
     username = os.getenv('USER')
     repo, repo_path, vcs_subdir = repo_information(pwd)
-    branch, remote, div = branch_info(repo_path, vcs_subdir) if repo else ("", "", "")
+    if repo:
+        branch, remote, div, stashes = branch_info(repo_path, vcs_subdir)
+    else:
+        branch, remote, div, stashes = "", "", "", ""
     virtualenv = virtual_env(pwd)
 
     # Format pieces for display
@@ -201,6 +210,7 @@ def main():
     repo = format_name("[{}]", repo, FCYN)
     branch = format_name("({})", branch, FMAG)
     remote = format_name("↑{{{}}}", remote, FBLE)
+    stash = format_stashes(stashes)
 
     # Combine into display
     prompt = ''.join([
@@ -214,6 +224,7 @@ def main():
         branch,
         div,
 		virtualenv,
+        stash,
 		os.linesep,
 		FYEL,
 		CURSOR,
