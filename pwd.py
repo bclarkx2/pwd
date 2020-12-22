@@ -181,7 +181,10 @@ def format_name(fmt, name, color):
         return ""
 
 def format_stashes(stashes):
-    return "".join("." * stashes)
+    if stashes:
+        return "".join("." * stashes)
+    else:
+        return ""
 
 ###############################################################################
 # Main                                                                        #
