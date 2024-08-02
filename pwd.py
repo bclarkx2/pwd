@@ -27,26 +27,26 @@ CURSOR = '$ '
 ELLIPSIS = ".."
 
 # colors
-RS = r"\[\033[0m\]"   # reset
-HC = r"\033[1m\]"     # hicolor
-UL = r"\033[4m\]"     # underline
-INV = r"\033[7m\]"    # inverse background and foreground
-FBLK = r"\033[30m\]"  # foreground black
-FRED = r"\033[31m\]"  # foreground red
-FGRN = r"\033[32m\]"  # foreground green
-FYEL = r"\033[33m\]"  # foreground yellow
-FBLE = r"\033[34m\]"  # foreground blue
-FMAG = r"\033[35m\]"  # foreground magenta
-FCYN = r"\033[36m\]"  # foreground cyan
-FWHT = r"\033[37m\]"  # foreground white
-BBLK = r"\033[40m\]"  # background black
-BRED = r"\033[41m\]"  # background red
-BGRN = r"\033[42m\]"  # background green
-BYEL = r"\033[43m\]"  # background yellow
-BBLE = r"\033[44m\]"  # background blue
-BMAG = r"\033[45m\]"  # background magenta
-BCYN = r"\033[46m\]"  # background cyan
-BWHT = r"\033[47m\]"  # background white
+RS = r"\[\033[0m\]"     # reset
+HC = r"\[\033[1m\]"     # hicolor
+UL = r"\[\033[4m\]"     # underline
+INV = r"\[\033[7m\]"    # inverse background and foreground
+FBLK = r"\[\033[30m\]"  # foreground black
+FRED = r"\[\033[31m\]"  # foreground red
+FGRN = r"\[\033[32m\]"  # foreground green
+FYEL = r"\[\033[33m\]"  # foreground yellow
+FBLE = r"\[\033[34m\]"  # foreground blue
+FMAG = r"\[\033[35m\]"  # foreground magenta
+FCYN = r"\[\033[36m\]"  # foreground cyan
+FWHT = r"\[\033[37m\]"  # foreground white
+BBLK = r"\[\033[40m\]"  # background black
+BRED = r"\[\033[41m\]"  # background red
+BGRN = r"\[\033[42m\]"  # background green
+BYEL = r"\[\033[43m\]"  # background yellow
+BBLE = r"\[\033[44m\]"  # background blue
+BMAG = r"\[\033[45m\]"  # background magenta
+BCYN = r"\[\033[46m\]"  # background cyan
+BWHT = r"\[\033[47m\]"  # background white
 
 vcs_subdirs = [".svn", ".git"]
 
